@@ -69,15 +69,12 @@ int main(int argc,char **argv)
   std::thread t2(func2);
   t1.join();
   t2.join();
-  cout << qqueue.size() << endl;
-  //std::thread t3(func3);
-  //std::thread t4(func3);
-  std::thread t5(func4);
+  std::thread t3(func3);
+  std::thread t4(func3);
 
-  //t3.join();
-  //t4.join();
-  t5.join();
-  cout << qqueue.size() << endl;
+  t3.join();
+  t4.join();
+  //t5.join();
   cout << ss.size() << endl;
   sort(ss.begin(), ss.end());
   ss.erase(unique(ss.begin(), ss.end()), ss.end());
