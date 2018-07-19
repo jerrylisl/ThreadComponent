@@ -1,7 +1,0 @@
-#include "LockfreeQueue.h"
-
-lockfreequeue::lockfreequeue()
-{
-
-}
-
