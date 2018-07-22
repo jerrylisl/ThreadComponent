@@ -3,8 +3,10 @@
 #include <unistd.h>
 #include <unordered_set>
 #include <algorithm>
+#include <functional>
 
 #include "ThreadPool.h"
+#include "Thread.h"
 #include "Coroutine.h"
 #include "Mutex.h"
 
@@ -27,6 +29,21 @@ static void add(int i)
     ss.push_back(i);
 
 }
+
+class ff : public Runable
+{
+public:
+    void run()
+    {
+        cout << "run " << endl;
+    }
+
+    void operator() ()
+    {
+        cout << "op()" << endl;
+    }
+
+};
 
 
 void func1(void)
@@ -63,9 +80,16 @@ void func4(void)
 
 }
 
+void func5(void)
+{
+    cout << "func" << endl;
+
+
+}
+
 int main(int argc,char **argv)
 {
-  std::thread t1(func1);
+/*  std::thread t1(func1);
   std::thread t2(func2);
   t1.join();
   t2.join();
@@ -79,8 +103,12 @@ int main(int argc,char **argv)
   sort(ss.begin(), ss.end());
   ss.erase(unique(ss.begin(), ss.end()), ss.end());
   cout << ss.size() << endl;
-  cout << ss[0] << endl;
-  return 0;
+  cout << ss[0] << endl;*/
+    ff f;
+    Thread a(func5);
+    a.start();
+    a.join();
+    return 0;
 }
 
 

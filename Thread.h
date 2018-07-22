@@ -14,14 +14,11 @@ class Thread : Noncopyable
 public:
     //typedef void* (*ThreadFunc)(void*);
     using ThreadFunc = std::function<void()>;
-    template<typename Func>
-    explicit Thread(const Func& func)
-        :started(false),
-         joined(false),
-         pthreadId(0)
-    {
-        threadFunc = static_cast<ThreadFunc>(func);
-    }
+    explicit Thread(Runable& func);
+
+
+    explicit Thread(const ThreadFunc& func);
+
 
     ~Thread();
 
@@ -31,10 +28,32 @@ public:
     pthread_t gettid() { return pthreadId; }
 
 private:
+
+    static void* startThread(void* obj);
     bool started;
     bool joined;
     pthread_t pthreadId;
     ThreadFunc threadFunc;
+    bool canRun;
+    Runable* threadFuncbyRun;
 };
+
+//template<typename Func>
+/*
+Thread::Thread(const ThreadFunc& func)
+    :started(false),
+     joined(false),
+     pthreadId(0),
+     canRun(false),
+     threadFuncbyRun(NULL)
+{
+    threadFunc = func;
+}
+*/
+
+//template<>
+
+
+
 
 #endif // THREAD_H
