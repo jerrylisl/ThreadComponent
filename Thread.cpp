@@ -2,6 +2,10 @@
 //#include<assert.h>
 #include "Thread.h"
 
+
+//现在，这个线程支持两种形式的事件函数：Java风格的run（必须继承Runable），或者C++风格的operator（）（必须重载对应运算符）
+//至于函数指针，会被转换为函数对象，并赋予其operator（）
+
 Thread::Thread(const ThreadFunc& func)
 :started(false),
  joined(false),
